@@ -21,7 +21,7 @@
             background-color: black;
             padding-top: 5%;
             align-items: center;
-            font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
         }
         .container {
             background-color: white;
@@ -29,6 +29,8 @@
             width: 80%;
             border: 3px solid green;
             padding: 10px;
+            border-top-left-radius: 20px;
+            border-bottom-right-radius: 20px;
         }
 
         .add {
@@ -53,7 +55,7 @@
                         <div class="row">
                             <form id="task-form">
                                 <div class="input-field col s12">
-                                    <input type="text" name="task" id="task">
+                                    <input type="text" name="task" id="task" autocomplete="off">
                                     <label for="task">New Task</label>
                                 </div>
                                 <button type="button" class="add btn" onkeydown="return (event.keyCode!=13);">Add Task</button>

@@ -19,6 +19,18 @@ function loadEventListerners() {
     clearBtn.addEventListener('click', clearTask);
     // Filter tasks event
     filter.addEventListener('keyup', filterTasks);
+    // Focus on TaskInput
+    taskInput.addEventListener('focus', focusTaskInput);
+    // Focus out TaskInput
+    taskInput.addEventListener('focusout', removeFocus);
+}
+
+function focusTaskInput(){
+    submit.style.backgroundColor = "green";
+}
+
+function removeFocus(){
+    submit.style.backgroundColor = "rgb(28, 215, 232)"
 }
 
 // Get Tasks from LocalStorage.
@@ -39,18 +51,24 @@ function getTasks() {
             li.className = 'collection-item';
             // Create text node style it and append to li
             li.appendChild(document.createTextNode(task));
-            li.style.backgroundColor = "green";
-            li.style.color = "yellow";
+            li.style.backgroundColor = "white";
+            li.style.color = "black";
+            li.style.padding = "4px";
+            li.style.borderRadius = "8px";
             li.style.border = "2px solid black";
             li.style.margin = "8px";
+
             // Create new Link element
-            const link = document.createElement("a");
+            const image = document.createElement("img");
+            image.style.width = "20px";
+            image.style.height = "20px";
             // Add Class
-            link.className = 'delete-item secondary-content';
+            image.className = 'delete-item secondary-content';
             // Add icon
-            link.innerHTML = '<i class="fa fa-remove"></i>';
+            image.src = '/icons/cancel.svg';
+            // link.innerHTML = '<i class="fa fa-cancel"></i>'
             // Append link to Li
-            li.appendChild(link);
+            li.appendChild(image);
             // Append li to ul
             taskList.appendChild(li);
         }
@@ -87,12 +105,14 @@ function storageTaskInLocalStorage(task) {
 
 // Remove Task
 function removeTask(e) {
+    console.log(e.target.parentElement)
+
     if (confirm("Do you want really want to delete it?") == true) {
-        if (e.target.parentElement.classList.contains('delete-item')) {
-            e.target.parentElement.parentElement.remove();
+        if (e.target.classList.contains('delete-item')) {
+            e.target.parentElement.remove();
 
             // Remove from Local Storage
-            removeTaskFromLocalStorage(e.target.parentElement.parentElement);
+            removeTaskFromLocalStorage(e.target.parentElement);
         }
     } else {
         return;
@@ -108,6 +128,8 @@ function removeTaskFromLocalStorage(taskItem) {
         tasks = JSON.parse(localStorage.getItem("tasks"));
     }
 
+    console.log(tasks);
+
     tasks.forEach(function(task, index){
         if(taskItem.textContent === task) {
             tasks.splice(index, 1);
@@ -115,7 +137,6 @@ function removeTaskFromLocalStorage(taskItem) {
     });
 
     localStorage.setItem("tasks", JSON.stringify(tasks));
-    location.reload();
 }
 
 // Clear Task
