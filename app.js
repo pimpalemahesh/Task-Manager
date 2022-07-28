@@ -65,7 +65,7 @@ function getTasks() {
             // Add Class
             image.className = 'delete-item secondary-content';
             // Add icon
-            image.src = '/icons/cancel.svg';
+            image.src = 'icons/cancel.svg';
             // link.innerHTML = '<i class="fa fa-cancel"></i>'
             // Append link to Li
             li.appendChild(image);
